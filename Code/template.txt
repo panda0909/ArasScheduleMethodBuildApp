@@ -1,0 +1,46 @@
+﻿using Aras.IOM;
+using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArasScheduleMethodBuildApp.Code
+{
+    class Wrapper_{@Domain}_{@Database}_{@ClassName}
+    {
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="connection">HttpServerConnection</param>
+        /// <returns>innMethod</returns>
+        public Case_{@ClassName} init(HttpServerConnection connection)
+        {
+            Case_{@ClassName} innMethod = new Case_{@ClassName}(connection);
+            return innMethod;
+        }
+        public class Case_{@ClassName} : Item
+        {
+            public Aras.Server.Core.CallContext CCO { get; set; }
+            public Aras.Server.Core.IContextState RequestState { get; set; }
+            public Case_{@ClassName}(IServerConnection arg) : base(arg)
+            {
+            }
+
+            /// <summary>
+            /// method內容請由這邊填寫
+            /// </summary>
+            /// <returns>Item</returns>
+            /// 
+
+            //MODE
+            public Item MethodCode0()
+            {
+                #region MethodCode
+{@code}
+                #endregion MethodCode
+            }
+        }
+    }
+}

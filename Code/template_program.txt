@@ -1,0 +1,38 @@
+﻿using Aras.IOM;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+
+namespace ArasScheduleMethodBuildApp.Code
+{
+    public class Temp_{@Domain}_{@Database}_{@ClassName} :IProgram
+    {
+        public void run()
+        {
+            string plm_url = ConfigurationManager.AppSettings["plm_url"];
+            string plm_db = ConfigurationManager.AppSettings["plm_db"];
+            string plm_ad = ConfigurationManager.AppSettings["plm_ad"];
+            string plm_pwd = ConfigurationManager.AppSettings["plm_pwd"];
+            ArasLib arasLib = new ArasLib(plm_url, plm_db, plm_ad, plm_pwd);
+            Wrapper_{@Domain}_{@Database}_{@ClassName} _wrapper{@ClassName} = new Wrapper_{@Domain}_{@Database}_{@ClassName}();
+            var innMethod = _wrapper{@ClassName}.init(arasLib.connection);
+            //取得method執行結果
+
+            Item result = innMethod.MethodCode0();
+            XmlDocument document = new XmlDocument();
+            document.Load(new StringReader(result.dom.InnerXml));
+            StringBuilder builder = new StringBuilder();
+            using (XmlTextWriter writer = new XmlTextWriter(new StringWriter(builder)))
+            {
+                writer.Formatting = Formatting.Indented;
+                document.Save(writer);
+            }
+            Console.WriteLine("result = " + Environment.NewLine + builder.ToString());
+        }
+    }
+}
